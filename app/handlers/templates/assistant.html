@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="row justify-content-center margin-m">
+        <div class="col-xs d-flex justify-content-center">
+            <a href="{{ url_for('redirectToMain') }}"><h1>Assistants' Manager</h1></a>
+        </div>
+    </div>
+    <div class="row justify-content-center margin">
+        <div class="col-md-12">
+            
+            <div class="people-nearby">
+                <div class="nearby-user">
+                    <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <img src="/static/localcloud/{{ filename }}" alt="user" class="profile-photo-lg">
+                    </div>
+                    <div class="col-md-7 col-sm-7">
+                        <h5><a href="#" class="profile-link">{{ firstname }} {{ lastname }}</a></h5>
+                        <p>Occupation: {{ occupation }}</p>
+                        <p>E-mail: {{ email }}</p>
+                        <p class="text-muted">Date of creation: {{ creationdate }}</p>
+                    </div>
+                    <form action="{{ url_for('editAssistant', assistant_id=ass_id) }}">
+                        <div class="col-md-3 col-sm-3">
+                            <button class="btn btn-secondary pull-right" type="submit">Edit</button>
+                        </div>
+                    </form>
+                    <form action="{{ url_for('deleteAssistant', assistant_id=ass_id) }}" method='post'>
+                        <div class="col-md-3 col-sm-3">
+                            <button class="btn btn-danger pull-right" type="submit">Delete</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    </div>
+{% endblock %}

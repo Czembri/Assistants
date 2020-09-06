@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 d-flex justify-content-end">
+
+                <div class="createassistantbtn">
+                    <a href="{{ url_for('createAssistant') }}"><button type="button" class="btn btn-secondary btn-lg">Create an Assistant</button></a>
+                </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            {% for t in table %}
+            <form action="{{ url_for('assistant', assistant_id=t.id) }}">
+                <div class="people-nearby">    
+                    <div class="nearby-user">
+                        <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <img src="static/localcloud/{{ t.filename }}" alt="user" class="profile-photo-lg">
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+                            <h5><a href="{{ url_for('assistant', assistant_id=t.id) }}" class="profile-link">{{ t.firstname }} {{ t.lastname }}</a></h5>
+                            <p>Occupation: {{ t.occupation }}</p>
+                            <p class="text-muted">Date of creation: {{ t.creationdate }}</p>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <button class="btn btn-secondary pull-right" type="submit">Show details</button>
+                        </div>
+                        </div>
+                    </div> 
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

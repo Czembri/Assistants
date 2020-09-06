@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row justify-content-center margin-m">
+    <div class="col-xs d-flex justify-content-center">
+        <a href="{{ url_for('redirectToMain') }}"><h1>Assistants' Manager</h1></a>
+    </div>
+</div>
+<div class="row justify-content-center margin">
+    <div class="col-md-10">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="InputFirstName">Firstname</label>
+                <input name="fname" type="text" class="form-control" id="InputFirstName" aria-describedby="fname" placeholder="Firstname">
+            </div>
+             <div class="form-group">
+                <label for="InputLastName">Lastname</label>
+                <input name="lname" type="text" class="form-control" id="InputLastName" aria-describedby="lname" placeholder="Lastname">
+            </div>
+            <div class="form-group">
+                <label for="emailInput">E-mail address</label>
+                <input name="email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="E-mail">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class='form-group'>
+                <label for="jobselect">Occupation</label>
+                    <select multiple class="form-control" id="jobselect" name=occupation>
+                    {% for j in jobs %}
+                    <option>{{ j }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+             <div class="form-group">
+                <label for="profileimage">Import image</label>
+                <input name="file" type="file" class="form-control-file" id="profileimage" accept=".img,.png">
+            </div>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

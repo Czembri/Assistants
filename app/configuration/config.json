@@ -1,0 +1,7 @@
+{
+  "sql":{
+      "secret_key":"253fc3280dd1d06014911ee6dcde4382",
+      "db_uri":"sqlite:///assistants.db"
+  },
+  "files":"app/handlers/static/localcloud"
+}

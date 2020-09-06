@@ -1,0 +1,99 @@
+html, body {
+    background-color: #0D4A4D;
+}
+
+.footer-color {
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: antiquewhite;
+    text-decoration: overline;
+}
+
+.createassistantbtn {
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+}
+
+label {
+    color: whitesmoke;
+}
+
+.margin {
+    margin-top: 8rem;
+}
+
+.page-not-found {
+    color: lightcoral;
+    font-weight: bold;
+    font-family: fantasy;
+
+}
+
+.set-center {
+    margin-top: 30%;
+    margin-bottom: 40%;
+}
+
+.margin-m {
+    margin-top: 4rem;
+}
+
+h5, small {
+    color: white;
+}
+
+
+
+.people-nearby .google-maps{
+    background: #f8f8f8;
+    border-radius: 4px;
+    border: 1px solid #f1f2f2;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .people-nearby .google-maps .map{
+    height: 300px;
+    width: 100%;
+    border: none;
+  }
+
+  .people-nearby .nearby-user{
+    padding: 20px 0;
+    border-top: 1px solid #f1f2f2;
+    border-bottom: 1px solid #f1f2f2;
+    margin-bottom: 20px;
+  }
+
+  img.profile-photo-lg{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+  }
+
+  p {
+      color: wheat;
+  }
+
+  label::before {
+    background-image: url(/static/localcloud/another.jpg);
+}
+
+:checked + label::before {
+    background-image: url(static/localcloud/another.jpg);
+}
+
+#page-content {
+    flex: 1 0 auto;
+  }
+  
+  #sticky-footer {
+    flex-shrink: none;
+  }
