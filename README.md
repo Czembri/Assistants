@@ -25,6 +25,7 @@
 
 ## Functional documentation
 
+### Application is ready for testing. While you launch it, custom Seeder, seeds database. __More in programming documentation__
 
 * here you find all your assistants
 
@@ -130,6 +131,8 @@ Blank space for updates
 
 * deleteAssistant() - deletes an assistant
 
+### Logs
+
 > */log/monitservice.log* - application logs are saved here
 
 
@@ -139,7 +142,7 @@ Blank space for updates
 
 * get_random_date(): generates random date for **creationdate** column
 
-* seed_database(): contains all needed data to seed database, adds and commits changes.
+* seed_database(): contains all needed data to seed database, adds and commits changes. It takes as a parameter number of assistants, that you want to create.
 
 ### Tests
 
@@ -148,6 +151,8 @@ Blank space for updates
 > */Tests/response.py* - Retreive data from: http://api.dataatwork.org/v1/jobs
 
 > */Tests/tests.py* - unitests
+
+> */Tests/selenium_tests.py* - Automatic routes testing
 
 ## Contributing
 
