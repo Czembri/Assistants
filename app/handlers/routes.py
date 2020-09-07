@@ -16,8 +16,8 @@ from app.handlers.models import AlchemyEncoder
 def checkRows():
     rows = db.session.query(Assistant).count()
     message = f"""Checking for number of rows in database:
-    ['Table':Assistant;
-    'Rows:{rows}'] """
+    ['Table':'Assistant';
+    'Rows':{rows}'] """
     log(message=message, category='debug')
     if rows > 5:
         log(message="No seed needed.", category='info')
@@ -62,6 +62,8 @@ def index():
 
 @app.route('/create', methods=['POST', 'GET'])
 def createAssistant():
+    log(message="Request for: ['Form':'createAssistant']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     log(message="Request for: ['Form':'createAssistant']", category="debug")
     list_of_jobs = getRequest()
 
@@ -140,12 +142,16 @@ def createAssistant():
 
 @app.route('/assistant/<int:assistant_id>')
 def assistant(assistant_id):
+    log(message="Request for: ['Form':'assistant']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     assistant = Assistant.query.get_or_404(assistant_id)
     return render_template('assistant.html', ass_id=assistant.id, firstname=assistant.firstname, lastname=assistant.lastname, filename=assistant.filename, email=assistant.email, occupation=assistant.occupation, creationdate=assistant.creationdate)
 
 
 @app.route('/assistant/<int:assistant_id>/edit', methods=['PUT', 'POST', 'GET'])
 def editAssistant(assistant_id):
+    log(message="Request for: ['Form':'editAssistant']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     assistant = Assistant.query.get_or_404(assistant_id)
     now = datetime.now()
     date_to_string = now.strftime("%d-%m-%Y %H:%M:%S")
@@ -177,29 +183,46 @@ def editAssistant(assistant_id):
 
 @app.route('/assistant/<int:assistant_id>/delete', methods=['POST'])
 def deleteAssistant(assistant_id):
+    log(message="Request for: ['Form':'deleteAssistant']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
+    log(message="Calling delete method.",category="debug")
     assistant = Assistant.query.get_or_404(assistant_id)
     db.session.delete(assistant)
     db.session.commit()
+    message = f""""Assistant: ['firstname':'{assistant.firstname}';
+    'lastname':'{assistant.lastname}';
+    'email':'{assistant.email}';
+    'occupation':'{assistant.occupation}';
+    'creationdate':'{assistant.creationdate}'
+    has been deleted successfully.] """
+    log(message=message, category='info')
     return redirect(url_for('index'))
 
 
 @app.route('/redirect/main')
 def redirectToMain():
+    log(message="Request for: ['Form':'redirectToMain']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     return redirect(url_for('index'))
 
 
 # errors' handlers section
 @app.errorhandler(404)
 def pageNotFound(e):
+    log(message="Request for: ['Form':'pageNotFound']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     return render_template('404.html'), 404
 
 
 @app.errorhandler(400)
 def badRequest(e):
+    log(message="Request for: ['Form':'badRequest']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     return render_template('400.html'), 400
 
 
 @app.errorhandler(500)
-def fail(e):
+def timeout(e):
+    log(message="Request for: ['Form':'timeout']", category="debug")
+    log(message="Request: ['status':'OK']", category='info')
     return render_template('500.html'), 500
-    
