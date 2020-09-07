@@ -13,7 +13,6 @@ from PIL import Image
 from app.handlers.models import AlchemyEncoder
 
 
-
 def checkRows():
     rows = db.session.query(Assistant).count()
     message = f"""Checking for number of rows in database:
@@ -203,3 +202,4 @@ def badRequest(e):
 @app.errorhandler(500)
 def fail(e):
     return render_template('500.html'), 500
+    
