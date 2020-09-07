@@ -1,5 +1,5 @@
 from app.handlers import app, db
-from flask import render_template, url_for, request, flash, redirect, jsonify
+from flask import render_template, url_for, request, flash, redirect, jsonify, session
 from werkzeug.utils import secure_filename
 from app.handlers.models import Assistant
 import requests
@@ -13,19 +13,19 @@ from PIL import Image
 from app.handlers.models import AlchemyEncoder
 
 
+
 def checkRows():
     rows = db.session.query(Assistant).count()
     message = f"""Checking for number of rows in database:
     ['Table':Assistant;
     'Rows:{rows}'] """
     log(message=message, category='debug')
-    if rows <= 1:
+    if rows > 5:
+        log(message="No seed needed.", category='info')
+    elif rows < 5:
         seed = Seeder(5)
-        seed.seed_databae()
+        seed.seed_database()
         log(message="Seeding database with count of rows 5.", category='info')
-    else:
-        return 0
-
 
 
 def getRequest():
@@ -37,14 +37,13 @@ def getRequest():
     log(message=message_request, category='debug')
     parse_json = json.loads(response.text)
     log(message="Parsing json data...", category="info")
-    
-    list_of_jobs = []   
+    list_of_jobs = []
     for job in parse_json:
         try:
             list_of_jobs.append(job['title'])
         except:
             break
-    return list_of_jobs
+    return set(list_of_jobs)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -52,6 +51,7 @@ def index():
     if request.method == 'GET':
         try:
             checkRows()
+            session.clear()
         except AttributeError as err:
             log(message=f"Could not seed database: ['Error':'{err}']", category='error')
 
@@ -89,8 +89,6 @@ def createAssistant():
 
         # handling files
         file = request.files['file']
-
-        
         if file.filename == '':
             log(message='File for user not attached.', category='warning')
             unique_file_name = 'default.png'
@@ -109,14 +107,13 @@ def createAssistant():
             try:
                 # I am aware of pep8 issue plcaed here
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_file_name))
-                image = Image.open(f"{app.config['UPLOAD_FOLDER']}/{unique_file_name}") 
-                MAX_SIZE = (100, 100) 
-  
-                image.thumbnail(MAX_SIZE) 
-                image.save(f"{app.config['UPLOAD_FOLDER']}/{unique_file_name}") 
+                image = Image.open(f"{app.config['UPLOAD_FOLDER']}/{unique_file_name}")
+                MAX_SIZE = (100, 100)
+                image.thumbnail(MAX_SIZE)
+                image.save(f"{app.config['UPLOAD_FOLDER']}/{unique_file_name}")
                 log(message=f"File saved.", category="info")
             except IOError as e:
-                io_file_message = f"""File could not be saved: 
+                io_file_message = f"""File could not be saved:
                 ['Error':{e}]"""
                 log(message=io_file_message, category="fatal")
 
@@ -164,7 +161,7 @@ def editAssistant(assistant_id):
     'creationdate':'{assistant.creationdate}';
     'modificationdate':'{assistant.modificationdate}']"""
     log(message=info_assistant_message, category='debug')
-    if request.method == 'POST' or request.method =='PUT':
+    if request.method == 'POST' or request.method == 'PUT':
         assistant.firstname = request.form['fname']
         assistant.lastname = request.form['lname']
         assistant.email = request.form['email']
@@ -178,12 +175,14 @@ def editAssistant(assistant_id):
 
     return render_template('editassistant.html', jobs=list_of_jobs, firstname=assistant.firstname, lastname=assistant.lastname, filename=assistant.filename, email=assistant.email, occupation=assistant.occupation, creationdate=assistant.creationdate)
 
+
 @app.route('/assistant/<int:assistant_id>/delete', methods=['POST'])
 def deleteAssistant(assistant_id):
     assistant = Assistant.query.get_or_404(assistant_id)
     db.session.delete(assistant)
     db.session.commit()
     return redirect(url_for('index'))
+
 
 @app.route('/redirect/main')
 def redirectToMain():
@@ -202,6 +201,5 @@ def badRequest(e):
 
 
 @app.errorhandler(500)
-def badRequest(e):
+def fail(e):
     return render_template('500.html'), 500
-
