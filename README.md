@@ -75,7 +75,7 @@ Blank space for updates
 
 - run application - *python run.py*
 
-### An application runs at 127.0.0.1:5000
+### The application runs at 127.0.0.1:5000
 
 ## Addresses
 
