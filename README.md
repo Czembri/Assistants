@@ -24,9 +24,7 @@
 
 > Table of contents
 
-- [Functional Documentation](#Functional Documentation)
 - [Setup](#Setup)
-- [Programming Documentation](#Programming documentation)
 - [Features](#features)
 - [Contributing](#contributing)
 - [Team](#team)
