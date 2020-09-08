@@ -25,7 +25,7 @@
 
 ## Functional documentation
 
-### Application is ready for testing. While you launch it, custom Seeder, seeds database. __More in programming documentation__
+### The Application is ready for testing. While you launch it, custom Seeder, seeds database. __More in programming documentation__
 
 * here you find all your assistants
 
