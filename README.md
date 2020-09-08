@@ -22,6 +22,18 @@
 - license
 - etc.
 
+> Table of contents
+
+- [Functional Documentation](#Functional Documentation)
+- [Setup](#Setup)
+- [Programming Documentation](#Programming documentation)
+- [Features](#features)
+- [Contributing](#contributing)
+- [Team](#team)
+- [FAQ](#faq)
+- [Support](#support)
+- [License](#license)
+
 
 ## Functional documentation
 
@@ -48,15 +60,7 @@
 ![Alt create assistant](https://user-images.githubusercontent.com/57504533/92333876-27f86f00-f089-11ea-9974-d932b2d72dd4.png?raw=true "Title")
 
 
-> Table of contents
 
-- [Installation](#installation)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
 
 
 --------
